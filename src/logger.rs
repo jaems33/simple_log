@@ -27,9 +27,9 @@ fn create_time_entry() -> String {
   local.format("%a, %b %d %Y %I:%M:%S %p\n").to_string()
 }
 
-pub fn log_time(str: &'static str) -> io::Result<()> {
+pub fn log_time(str: &'static str) -> io::Result<String> {
   let entry = create_time_entry();
   let bytes = entry.as_bytes();
   log_string(str, bytes)?;
-  Ok(())
+  Ok(entry)
 }
