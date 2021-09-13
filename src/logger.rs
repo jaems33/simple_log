@@ -22,13 +22,17 @@ fn log_string(filename: String, string: &[u8]) -> std::io::Result<()> {
   
 }
 
-fn create_time_entry() -> String {
+fn create_time_entry(entry_data: Option<String>) -> String {
   let local: DateTime<Local> = Local::now();
-  local.format("%a, %b %d %Y %I:%M:%S %p\n").to_string()
+  let now = local.format("%a, %b %d %Y %I:%M:%S %p").to_string();
+  match entry_data {
+    Some(str) => [now, " - ".to_string(), str, "\n".to_string()].join(""),
+    None => [now, "\n".to_string()].join("")
+  }
 }
 
-pub fn log_time(str: String) -> io::Result<String> {
-  let entry = create_time_entry();
+pub fn log_time(str: String, token: Option<String>) -> io::Result<String> {
+  let entry = create_time_entry(token);
   let bytes = entry.as_bytes();
   log_string(str, bytes)?;
   Ok(entry)
