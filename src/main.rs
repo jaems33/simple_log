@@ -1,8 +1,5 @@
-#[macro_use]
-extern crate nickel;
-
 use clap::{App, Arg};
-use nickel::{Middleware, MiddlewareResult, Nickel, Request, Response};
+use nickel::{MiddlewareResult, Nickel, Request, Response};
 use tokio;
 
 mod logger;
